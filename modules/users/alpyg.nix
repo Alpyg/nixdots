@@ -15,11 +15,13 @@
     {
       imports = [
         self.homeModules.base
-        self.homeModules.hyprland
         self.homeModules.stylix
+        self.homeModules.hyprland
         self.homeModules.dev
+        self.homeModules.nixcord
 
         inputs.stylix.homeModules.stylix
+        inputs.nixcord.homeModules.nixcord
         inputs.zen-browser.homeModules.beta
       ];
 
@@ -110,7 +112,6 @@
         limo
         lsfg-vk
         lsfg-vk-ui
-        discord
 
         # stremio
         # kicad

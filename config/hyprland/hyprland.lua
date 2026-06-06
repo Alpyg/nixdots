@@ -28,7 +28,6 @@ hl.monitor({
 
 
 hl.on("hyprland.start", function()
-  hl.exec_cmd("hyprpm reload -n")
   hl.exec_cmd("steam")
   hl.exec_cmd("discord")
   hl.exec_cmd("dunst")

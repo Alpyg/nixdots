@@ -1,5 +1,14 @@
 { self, inputs, ... }:
 {
+  flake.nixosModules.stylix =
+    { pkgs, ... }:
+    {
+      stylix = {
+        enable = true;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
+    };
+
   flake.homeModules.stylix =
     { pkgs, ... }:
     {

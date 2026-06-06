@@ -16,7 +16,7 @@
       imports = [
         self.homeModules.base
         self.homeModules.hyprland
-        # self.homeModules.stylix
+        self.homeModules.stylix
         self.homeModules.dev
 
         inputs.stylix.homeModules.stylix

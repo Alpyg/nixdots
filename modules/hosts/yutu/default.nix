@@ -6,10 +6,10 @@
       self.nixosModules.yutuHardware
       self.nixosModules.yutuUsers
 
-      self.nixosModules.stylix
+      # self.nixosModules.stylix
 
       inputs.home-manager.nixosModules.default
-      inputs.stylix.nixosModules.stylix
+      # inputs.stylix.nixosModules.stylix
       inputs.sops-nix.nixosModules.sops
     ];
   };

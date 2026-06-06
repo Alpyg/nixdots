@@ -11,14 +11,13 @@
           vencord.enable = true;
         };
         config = {
-          enabledThemeLinks = [ "https://github.com/catppuccin/discord/blob/main/themes/mocha.theme.css" ];
           frameless = true;
           plugins = {
             betterFolders.enable = true;
             betterRoleContext.enable = true;
             betterRoleDot.enable = true;
             callTimer.enable = true;
-            clearUrls.enable = true;
+            ClearURLs.enable = true;
             crashHandler.enable = true;
             fakeNitro.enable = true;
             imageZoom = {

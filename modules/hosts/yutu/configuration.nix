@@ -30,7 +30,7 @@
       boot.loader.efi.canTouchEfiVariables = true;
       boot.supportedFilesystems = [ "ntfs" ];
 
-      sops.defaultSopsFile = ../../secrets.yml;
+      sops.defaultSopsFile = ../../../secrets.yml;
       sops.defaultSopsFormat = "yaml";
 
       sops.age.generateKey = true;
@@ -78,6 +78,12 @@
           ];
         };
       };
+
+      services.openvpn.servers = {
+        protonvpn.config = ''config /home/alpyg/.openvpn/protonvpn.ovpn'';
+      };
+      environment.etc."openvpn/update-resolv-conf".source =
+        "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
 
       services.openssh.enable = true;
       services.zerotierone = {
@@ -196,6 +202,7 @@
             unset TZ
           '';
         };
+        protontricks.enable = true;
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = true;
         extraCompatPackages = with pkgs; [
@@ -251,6 +258,7 @@
       # };
 
       environment.systemPackages = with pkgs; [
+        openvpn
         fishPlugins.done
         kitty
         nix-index

@@ -29,6 +29,7 @@
       programs.tmux.baseIndex = 1;
 
       home.packages = with pkgs; [
+        devenv
         android-studio
         bacon
         bun
@@ -59,6 +60,8 @@
         zig
         zls
         renderdoc
+        watchexec
+        typst
 
         # language servers
         csharp-ls

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   flake.homeModules.base =
     {
@@ -13,8 +13,16 @@
         };
       };
 
+      programs.kitty = {
+        enable = true;
+        font.size = lib.mkForce 9;
+      };
+
       programs.btop = {
         enable = true;
+        package = pkgs.btop.overrideAttrs (old: rec {
+          cudaSupport = true;
+        });
         settings = {
           update_ms = 100;
           use_fstab = false;

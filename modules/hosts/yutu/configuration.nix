@@ -80,7 +80,10 @@
       };
 
       services.openvpn.servers = {
-        protonvpn.config = ''config /home/alpyg/.openvpn/protonvpn.ovpn'';
+        protonvpn = {
+          config = ''config /home/alpyg/.openvpn/protonvpn.ovpn'';
+          autoStart = false;
+        };
       };
       environment.etc."openvpn/update-resolv-conf".source =
         "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";

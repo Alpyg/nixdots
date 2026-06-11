@@ -23,11 +23,12 @@
         };
 
         fonts.sizes = {
-          applications = 10;
-          desktop = 10;
+          applications = 9;
+          desktop = 9;
         };
 
         targets = {
+          nixcord.enable = false;
           zen-browser.profileNames = [ "Alpyg" ];
         };
 

@@ -5,7 +5,11 @@
     {
       programs.nixcord = {
         enable = true;
-        discord.vencord.enable = true;
+        discord = {
+          vencord.enable = true;
+          openASAR.enable = true;
+          krisp.enable = true;
+        };
         vesktop.enable = true;
         legcord = {
           enable = true;
@@ -18,7 +22,7 @@
             betterRoleContext.enable = true;
             betterRoleDot.enable = true;
             callTimer.enable = true;
-            ClearURLs.enable = true;
+            clearUrls.enable = true;
             crashHandler.enable = true;
             fakeNitro.enable = true;
             imageZoom = {
@@ -32,7 +36,7 @@
               ignoreSelf = true;
               ignoreBots = true;
             };
-            PinDMs.enable = true;
+            pinDms.enable = true;
             silentTyping.enable = true;
             typingIndicator.enable = true;
           };

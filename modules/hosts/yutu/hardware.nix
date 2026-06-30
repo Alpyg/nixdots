@@ -11,7 +11,7 @@
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
       boot.initrd.availableKernelModules = [
-        "xhci_pci"
+        # "xhci_pci"
         "ahci"
         "usbhid"
         "sd_mod"
@@ -19,6 +19,7 @@
       boot.initrd.kernelModules = [ "amdgpu" ];
       boot.kernelModules = [ "kvm-intel" ];
       boot.extraModulePackages = [ ];
+      boot.blacklistedKernelModules = [ "b43" ];
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/f8658ba2-c23d-43dc-a4f6-2d0c25885cc8";

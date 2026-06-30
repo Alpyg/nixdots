@@ -135,7 +135,7 @@
       virtualisation.docker = {
         enable = true;
         liveRestore = false;
-        extraOptions = "--insecure-registry 10.147.20.18:10000";
+        extraOptions = "--insecure-registry 10.147.20.99:5000";
       };
       services.dockerRegistry = {
         enable = true;
@@ -145,7 +145,7 @@
         port = 10000;
         listenAddress = "0.0.0.0";
       };
-      # hardware.nvidia-container-toolkit.enable = true;
+      hardware.nvidia-container-toolkit.enable = true;
 
       # virtualisation.virtualbox.host = {
       #   enable = true;
@@ -170,6 +170,16 @@
           "wheel"
           "storage"
           "docker"
+        ];
+      };
+      systemd.tmpfiles.rules = [
+        "d /etc/dokploy 0755 dokploy dokploy -"
+      ];
+      users.users.dokploy = {
+        isNormalUser = true;
+        extraGroups = [ "docker" ];
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAkiR3D1WKlLwI91cOfK/ETYl8PAYgjCmoZsAi/33r4U dokploy"
         ];
       };
       users.defaultUserShell = pkgs.fish;
@@ -198,6 +208,7 @@
       programs.partition-manager.enable = true;
 
       programs.gamemode.enable = true;
+      programs.gamescope.enable = true;
       programs.steam = {
         enable = true;
         package = pkgs.steam.override {
@@ -278,12 +289,25 @@
         dconf
       ];
       environment.shells = with pkgs; [ fish ];
-      environment.sessionVariables = {
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-        # QT_QPA_PLATFORMTHEME = "qt6ct";
+
+      environment = {
+        variables = {
+          XDG_CURRENT_DESKTOP = "Hyprland";
+          XDG_SESSION_TYPE = "wayland";
+          XDG_SESSION_DESKTOP = "Hyprland";
+        };
+        sessionVariables = {
+          XDG_CACHE_HOME = "$HOME/.cache";
+          XDG_CONFIG_HOME = "$HOME/.config";
+          XDG_DATA_HOME = "$HOME/.local/share";
+          XDG_STATE_HOME = "$HOME/.local/state";
+          # QT_QPA_PLATFORMTHEME = "qt6ct";
+          MOZ_ENABLE_WAYLAND = "1";
+          NIXOS_OZONE_WL = "1";
+          T_QPA_PLATFORM = "wayland";
+          GDK_BACKEND = "wayland";
+          WLR_NO_HARDWARE_CURSORS = "1";
+        };
       };
 
       programs.nix-ld.enable = true;

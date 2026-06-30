@@ -28,56 +28,50 @@
       programs.tmux.mouse = true;
       programs.tmux.baseIndex = 1;
 
+      programs.devenv = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+
       home.packages = with pkgs; [
-        devenv
-        android-studio
-        bacon
-        bun
-        dbeaver-bin
-        dotnet-sdk
-        gcc
-        gnumake
-        go
-        godot_4
-        google-chrome
-        # jetbrains.idea-community-bin
-        just
-        kondo
+        # bun
+        # dbeaver-bin
+        # dotnet-sdk
+        # gcc
+        # gnumake
+        # go
+        # godot_4
         lazydocker
         libnotify
         mask
-        mprocs
-        nixfmt
-        nodejs
-        python313
-        hyperfine
-        qemu
-        rustup
-        rusty-man
-        tmuxinator
+        # mprocs
+        # nixfmt
+        # hyperfine
+        # rustup
+        # rusty-man
         tokei
-        vrc-get
-        zig
-        zls
-        renderdoc
+        # vrc-get
+        # zig
+        # zls
+        # renderdoc
         watchexec
         typst
 
         # language servers
-        csharp-ls
+        # csharp-ls
         # docker-language-server
-        fish-lsp
-        gopls
-        jdt-language-server
-        kotlin-language-server
-        libclang
-        marksman
-        nixd
-        omnisharp-roslyn
-        ruff
-        typescript-language-server
-        wgsl-analyzer
-        yaml-language-server
+        # fish-lsp
+        # gopls
+        # jdt-language-server
+        # kotlin-language-server
+        # libclang
+        # marksman
+        # nixd
+        # omnisharp-roslyn
+        # ruff
+        # typescript-language-server
+        # wgsl-analyzer
+        # yaml-language-server
       ];
     };
 }

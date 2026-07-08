@@ -112,6 +112,7 @@
         limo
         lsfg-vk
         lsfg-vk-ui
+        protonup-rs
 
         # stremio
         # kicad

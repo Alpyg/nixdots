@@ -86,10 +86,26 @@
         fsType = "ext4";
       };
 
+      fileSystems."/mnt/z" = {
+        device = "/dev/disk/by-uuid/a9ab092f-0363-457e-974d-1c04d7e66480";
+        fsType = "btrfs";
+        options = [
+          "subvol=@z"
+          "compress=zstd"
+        ];
+      };
+      fileSystems."/mnt/z/Games" = {
+        device = "/dev/disk/by-uuid/a9ab092f-0363-457e-974d-1c04d7e66480";
+        fsType = "btrfs";
+        options = [
+          "subvol=@games"
+          "compress=zstd"
+        ];
+      };
+
       swapDevices = [ { device = "/swap/swapfile"; } ];
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
       hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
     };
 }

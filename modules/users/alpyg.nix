@@ -1,4 +1,8 @@
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  ...
+}:
 {
   flake.homeConfigurations.alpyg = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
@@ -19,6 +23,7 @@
         self.homeModules.hyprland
         self.homeModules.dev
         self.homeModules.nixcord
+        self.homeModules.gaming
 
         inputs.stylix.homeModules.stylix
         inputs.nixcord.homeModules.nixcord
@@ -27,11 +32,7 @@
 
       nixpkgs = {
         overlays = [
-          # (final: prev: {
-          #   hi = final.hello.overrideAttrs (oldAttrs: {
-          #     patches = [ ./change-hello-to-hi.patch ];
-          #   });
-          # })
+          inputs.nur.overlays.default
         ];
         config = {
           allowUnfree = true;
@@ -99,20 +100,6 @@
         kdePackages.ktorrent
         kdePackages.kservice
         kdePackages.polkit-kde-agent-1
-        wineWow64Packages.unstable
-        (lutris.override {
-          extraLibraries = pkgs: [
-            wineWow64Packages.unstable
-            libGL
-          ];
-        })
-        protontricks
-        steamtinkerlaunch
-        winetricks
-        limo
-        lsfg-vk
-        lsfg-vk-ui
-        protonup-rs
 
         # stremio
         # kicad

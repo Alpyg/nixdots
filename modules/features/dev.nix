@@ -35,7 +35,7 @@
 
       home.packages = with pkgs; [
         # bun
-        # dbeaver-bin
+        dbeaver-bin
         # dotnet-sdk
         # gcc
         # gnumake

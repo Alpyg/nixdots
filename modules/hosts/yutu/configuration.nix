@@ -12,8 +12,6 @@
       ...
     }:
     {
-      # ollama.enable = true;
-
       environment.variables.GLFW_IM_MODULE = "ibus";
 
       nix.settings = {

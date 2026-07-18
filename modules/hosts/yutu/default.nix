@@ -7,7 +7,7 @@
       self.nixosModules.yutuUsers
 
       # self.nixosModules.stylix
-      # self.nixosModules.ollama
+      self.nixosModules.ollama
 
       inputs.nur.modules.nixos.default
       inputs.home-manager.nixosModules.default

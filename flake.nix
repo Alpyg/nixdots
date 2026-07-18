@@ -18,6 +18,7 @@
     nixcord.url = "github:FlameFlag/nixcord";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    modde.url = "git+https://codeberg.org/caniko/rs-modde";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);

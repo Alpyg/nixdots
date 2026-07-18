@@ -6,6 +6,11 @@
       ...
     }:
     {
+      imports = [
+        inputs.modde.homeManagerModules.modde
+
+      ];
+
       home.packages = with pkgs; [
         (lutris.override {
           extraLibraries = pkgs: [
@@ -18,13 +23,16 @@
         protontricks
         steamtinkerlaunch
         winetricks
-        limo
         lsfg-vk
         lsfg-vk-ui
         protonup-rs
         uzdoom
         nur.repos.ataraxiasjel.stalker-gamma-cli
       ];
+
+      programs.modde = {
+        enable = true;
+      };
 
       xdg.configFile."MangoHud/MangoHud.conf".text = ''
         legacy_layout=false

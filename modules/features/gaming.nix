@@ -27,6 +27,7 @@
         lsfg-vk-ui
         protonup-rs
         uzdoom
+        shadps4
         nur.repos.ataraxiasjel.stalker-gamma-cli
       ];
 

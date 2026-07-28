@@ -13,6 +13,7 @@
       inputs.home-manager.nixosModules.default
       # inputs.stylix.nixosModules.stylix
       inputs.sops-nix.nixosModules.sops
+      inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     ];
   };
 

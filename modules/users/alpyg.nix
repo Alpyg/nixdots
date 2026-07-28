@@ -169,9 +169,33 @@
         "x-scheme-handler/https" = "zen.desktop";
         "x-scheme-handler/about" = "zen.desktop";
         "x-scheme-handler/unknown" = "zen.desktop";
+        "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
       };
       xdg.configFile."menus/applications.menu".text =
         builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+      xdg.portal = {
+        enable = true;
+        extraPortals = with pkgs; [
+          xdg-desktop-portal
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+          xdg-desktop-portal-gtk
+        ];
+        config = {
+          common = {
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          };
+          hyprland = {
+            default = [
+              "hyprland"
+              "gtk"
+            ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+          };
+        };
+      };
 
       systemd.user.startServices = "sd-switch";
 

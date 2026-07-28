@@ -211,6 +211,8 @@
         enable = true;
         package = pkgs.steam.override {
           extraProfile = ''
+            export PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc
+            export PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1
             unset TZ
           '';
         };
@@ -239,30 +241,33 @@
         ];
       };
 
-      #  services.wivrn = {
-      #   enable = true;
-      #   openFirewall = true;
-      #   autoStart = true;
+      services.wivrn = {
+        enable = true;
+        openFirewall = true;
+        autoStart = true;
 
-      #   package = pkgs.wivrn.override { config.cudaSupport = true; };
+        package = pkgs.wivrn.override { config.cudaSupport = true; };
 
-      #   config = {
-      #     enable = true;
-      #     json = {
-      #       scale = 0.5;
-      #       bitrate = 100000000;
-      #       encoders = [{
-      #         encoder = "nvenc";
-      #         codec = "h264";
-      #         width = 1.0;
-      #         height = 1.0;
-      #         offset_x = 0.0;
-      #         offset_y = 0.0;
-      #       }];
-      #       application = [ pkgs.wlx-overlay-s ];
-      #     };
-      #   };
-      # };
+        config = {
+          enable = true;
+          json = {
+            scale = 0.5;
+            bitrate = 100000000;
+            encoders = [
+              {
+                encoder = "nvenc";
+                codec = "h264";
+                width = 1.0;
+                height = 1.0;
+                offset_x = 0.0;
+                offset_y = 0.0;
+              }
+            ];
+            application = with pkgs; [ wayvr ];
+          };
+        };
+      };
+      systemd.user.services.wivrn.environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=%t/bus";
 
       # stylix = {
       #   enable = true;
@@ -322,14 +327,23 @@
 
       xdg.portal = {
         enable = true;
-        xdgOpenUsePortal = true;
-        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+        extraPortals = with pkgs; [
+          xdg-desktop-portal
+          # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+          xdg-desktop-portal-gtk
+        ];
         config = {
           common = {
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          };
+          hyprland = {
             default = [
               "hyprland"
               "gtk"
             ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
           };
         };
       };

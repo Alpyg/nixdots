@@ -12,6 +12,7 @@
         slurp
         hyprshot
         clipse
+        wl-clipboard
       ];
       xdg.configFile = {
         "hypr/hyprsplit" = {

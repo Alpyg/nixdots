@@ -1,14 +1,18 @@
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  ...
+}:
 {
   flake.homeModules.gaming =
     {
       pkgs,
+      config,
       ...
     }:
     {
       imports = [
         inputs.modde.homeManagerModules.modde
-
       ];
 
       home.packages = with pkgs; [
@@ -20,20 +24,40 @@
           ];
         })
         wineWow64Packages.unstable
+        winetricks
         protontricks
         steamtinkerlaunch
-        winetricks
         lsfg-vk
         lsfg-vk-ui
         protonup-rs
         uzdoom
         shadps4
+        shadps4-qtlauncher
         nur.repos.ataraxiasjel.stalker-gamma-cli
+        inputs.vortex-nix.packages.x86_64-linux.vortex
       ];
 
       programs.modde = {
         enable = true;
       };
+
+      xdg.configFile."openvr/openvrpaths.vrpath".text =
+        let
+          steam = "${config.xdg.dataHome}/Steam";
+        in
+        builtins.toJSON {
+          version = 1;
+          jsonid = "vrpathreg";
+
+          external_drivers = null;
+          config = [ "${steam}/config" ];
+
+          log = [ "${steam}/logs" ];
+
+          runtime = [
+            "${pkgs.xrizer}/lib/xrizer"
+          ];
+        };
 
       xdg.configFile."MangoHud/MangoHud.conf".text = ''
         legacy_layout=false

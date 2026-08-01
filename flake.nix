@@ -15,7 +15,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprsplit.url = "github:shezdy/hyprsplit";
     stylix.url = "github:nix-community/stylix";
-    nixvim.url = "/mnt/x/Dev/nixvim";
+    nvf.url = "/mnt/x/Dev/nvf";
     nixcord.url = "github:FlameFlag/nixcord";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

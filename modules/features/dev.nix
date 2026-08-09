@@ -57,6 +57,9 @@
         watchexec
         typst
 
+        opencode
+        claude-code
+
         # language servers
         # csharp-ls
         # docker-language-server

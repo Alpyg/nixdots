@@ -11,9 +11,7 @@
       ...
     }:
     {
-      imports = [
-        inputs.modde.homeManagerModules.modde
-      ];
+      imports = [ ];
 
       home.packages = with pkgs; [
         (lutris.override {
@@ -36,10 +34,6 @@
         nur.repos.ataraxiasjel.stalker-gamma-cli
         inputs.vortex-nix.packages.x86_64-linux.vortex
       ];
-
-      programs.modde = {
-        enable = true;
-      };
 
       xdg.configFile."openvr/openvrpaths.vrpath".text =
         let

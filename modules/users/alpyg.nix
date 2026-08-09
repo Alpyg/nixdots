@@ -2,203 +2,198 @@
   self,
   inputs,
   ...
-}:
-{
+}: {
   flake.homeConfigurations.alpyg = inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+    pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
     modules = [
       self.homeModules.alpyg
     ];
   };
 
-  flake.homeModules.alpyg =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      imports = [
-        self.homeModules.base
-        self.homeModules.stylix
-        self.homeModules.hyprland
-        self.homeModules.dev
-        self.homeModules.nixcord
-        self.homeModules.gaming
+  flake.homeModules.alpyg = {pkgs, ...}: {
+    imports = [
+      self.homeModules.base
+      self.homeModules.stylix
+      self.homeModules.hyprland
+      self.homeModules.dev
+      self.homeModules.nixcord
+      self.homeModules.gaming
+      self.homeModules.ollama
 
-        inputs.stylix.homeModules.stylix
-        inputs.nixcord.homeModules.nixcord
-        inputs.zen-browser.homeModules.beta
+      inputs.stylix.homeModules.stylix
+      inputs.nixcord.homeModules.nixcord
+      inputs.zen-browser.homeModules.beta
+    ];
+
+    nixpkgs = {
+      overlays = [
+        inputs.nur.overlays.default
       ];
-
-      nixpkgs = {
-        overlays = [
-          inputs.nur.overlays.default
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+        permittedInsecurePackages = [
+          "electron-40.10.5"
         ];
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-          permittedInsecurePackages = [
-            "electron-40.10.5"
-          ];
-        };
       };
-
-      home = {
-        username = "alpyg";
-        homeDirectory = "/home/alpyg";
-      };
-
-      programs.home-manager.enable = true;
-      programs.obs-studio.enable = true;
-      programs.fish.enable = true;
-      programs.zoxide = {
-        enable = true;
-        enableFishIntegration = true;
-      };
-
-      services.kdeconnect.enable = true;
-      services.hyprpolkitagent.enable = true;
-
-      home.packages = with pkgs; [
-        zoxide
-        nixfmt
-        tmuxinator
-        libnotify
-        xclip
-        flameshot
-        playerctl
-        catppuccin-fcitx5
-        p7zip
-        unzip
-        unrar
-        thunderbird
-        brave
-        vlc
-        mpv
-        syncplay
-        calibre
-        unityhub
-        alcom
-        goverlay
-        prismlauncher
-        osu-lazer
-        obsidian
-        prusa-slicer
-        libsForQt5.qt5ct
-        kdePackages.qt6ct
-        kdePackages.breeze-gtk
-        kdePackages.breeze-icons
-        kdePackages.qtstyleplugin-kvantum
-        kdePackages.kdegraphics-thumbnailers
-        kdePackages.ffmpegthumbs
-        kdePackages.qtimageformats
-        kdePackages.qtsvg
-        kdePackages.ark
-        kdePackages.gwenview
-        kdePackages.dolphin
-        kdePackages.kate
-        kdePackages.kio
-        kdePackages.kio-fuse
-        kdePackages.filelight
-        kdePackages.ktorrent
-        kdePackages.kservice
-        kdePackages.polkit-kde-agent-1
-
-        stremio-linux-shell
-        kicad
-        blender
-        # freecad
-        sops
-        anki
-        gimp
-        r2modman
-        blockbench
-        inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-      ];
-
-      programs.zen-browser = {
-        enable = true;
-        policies = {
-          AutofillAddressEnabled = true;
-          AutofillCreditCardEnabled = false;
-          DisableAppUpdate = true;
-          DisableFeedbackCommands = true;
-          DisableFirefoxStudies = true;
-          DisablePocket = true;
-          DisableTelemetry = true;
-          DontCheckDefaultBrowser = true;
-          NoDefaultBookmarks = true;
-          OfferToSaveLogins = false;
-          EnableTrackingProtection = {
-            Value = true;
-            Locked = true;
-            Cryptomining = true;
-            Fingerprinting = true;
-          };
-        };
-        profiles."Alpyg" = {
-          id = 0;
-          settings = {
-            "zen.workspaces.continue-where-left-off" = true;
-            "zen.workspaces.natural-scroll" = true;
-            "zen.view.compact.hide-tabbar" = true;
-            "zen.view.compact.hide-toolbar" = true;
-            "zen.view.compact.animate-sidebar" = true;
-            "zen.welcome-screen.seen" = true;
-          };
-          mods = [
-            "ae7868dc-1fa1-469e-8b89-a5edf7ab1f24"
-            "81fcd6b3-f014-4796-988f-6c3cb3874db8"
-            "1e86cf37-a127-4f24-b919-d265b5ce29a0"
-            "4596d8f9-f0b7-4aeb-aa92-851222dc1888"
-          ];
-          extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
-            bitwarden
-            sponsorblock
-            stylus
-            ublock-origin
-            yomitan
-            youtube-auto-hd-fps
-          ];
-        };
-      };
-
-      xdg.mimeApps.defaultApplications = {
-        "text/html" = "zen.desktop";
-        "x-scheme-handler/http" = "zen.desktop";
-        "x-scheme-handler/https" = "zen.desktop";
-        "x-scheme-handler/about" = "zen.desktop";
-        "x-scheme-handler/unknown" = "zen.desktop";
-        "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
-      };
-      xdg.configFile."menus/applications.menu".text =
-        builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-
-      xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal
-          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-          xdg-desktop-portal-gtk
-        ];
-        config = {
-          common = {
-            default = [ "gtk" ];
-            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          };
-          hyprland = {
-            default = [
-              "hyprland"
-              "gtk"
-            ];
-            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
-          };
-        };
-      };
-
-      systemd.user.startServices = "sd-switch";
-
-      home.stateVersion = "26.05";
     };
+
+    home = {
+      username = "alpyg";
+      homeDirectory = "/home/alpyg";
+    };
+
+    programs.home-manager.enable = true;
+    programs.obs-studio.enable = true;
+    programs.fish.enable = true;
+    programs.zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    services.kdeconnect.enable = true;
+    services.hyprpolkitagent.enable = true;
+
+    home.packages = with pkgs; [
+      zoxide
+      nixfmt
+      tmuxinator
+      libnotify
+      xclip
+      flameshot
+      playerctl
+      catppuccin-fcitx5
+      p7zip
+      unzip
+      unrar
+      thunderbird
+      brave
+      vlc
+      mpv
+      syncplay
+      calibre
+      unityhub
+      alcom
+      goverlay
+      prismlauncher
+      osu-lazer
+      obsidian
+      prusa-slicer
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
+      kdePackages.breeze-gtk
+      kdePackages.breeze-icons
+      kdePackages.qtstyleplugin-kvantum
+      kdePackages.kdegraphics-thumbnailers
+      kdePackages.ffmpegthumbs
+      kdePackages.qtimageformats
+      kdePackages.qtsvg
+      kdePackages.ark
+      kdePackages.gwenview
+      kdePackages.dolphin
+      kdePackages.kate
+      kdePackages.kio
+      kdePackages.kio-fuse
+      kdePackages.filelight
+      kdePackages.ktorrent
+      kdePackages.kservice
+      kdePackages.polkit-kde-agent-1
+
+      stremio-linux-shell
+      kicad
+      blender
+      # freecad
+      sops
+      anki
+      gimp
+      r2modman
+      blockbench
+      inputs.nvf.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
+
+    programs.zen-browser = {
+      enable = true;
+      policies = {
+        AutofillAddressEnabled = true;
+        AutofillCreditCardEnabled = false;
+        DisableAppUpdate = true;
+        DisableFeedbackCommands = true;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
+      };
+      profiles."Alpyg" = {
+        id = 0;
+        settings = {
+          "zen.workspaces.continue-where-left-off" = true;
+          "zen.workspaces.natural-scroll" = true;
+          "zen.view.compact.hide-tabbar" = true;
+          "zen.view.compact.hide-toolbar" = true;
+          "zen.view.compact.animate-sidebar" = true;
+          "zen.welcome-screen.seen" = true;
+        };
+        mods = [
+          "ae7868dc-1fa1-469e-8b89-a5edf7ab1f24"
+          "81fcd6b3-f014-4796-988f-6c3cb3874db8"
+          "1e86cf37-a127-4f24-b919-d265b5ce29a0"
+          "4596d8f9-f0b7-4aeb-aa92-851222dc1888"
+        ];
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+          bitwarden
+          sponsorblock
+          stylus
+          ublock-origin
+          yomitan
+          youtube-auto-hd-fps
+        ];
+      };
+    };
+
+    xdg.mimeApps.defaultApplications = {
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/http" = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
+      "x-scheme-handler/about" = "zen.desktop";
+      "x-scheme-handler/unknown" = "zen.desktop";
+      "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
+    };
+    xdg.configFile."menus/applications.menu".text =
+      builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+        };
+        hyprland = {
+          default = [
+            "hyprland"
+            "gtk"
+          ];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+          "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
+        };
+      };
+    };
+
+    systemd.user.startServices = "sd-switch";
+
+    home.stateVersion = "26.05";
+  };
 }

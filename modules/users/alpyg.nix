@@ -103,6 +103,7 @@
       stremio-linux-shell
       kicad
       blender
+      openscad
       # freecad
       sops
       anki

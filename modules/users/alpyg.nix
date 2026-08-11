@@ -19,6 +19,7 @@
       self.homeModules.nixcord
       self.homeModules.gaming
       self.homeModules.ollama
+      self.homeModules.llm
 
       inputs.stylix.homeModules.stylix
       inputs.nixcord.homeModules.nixcord

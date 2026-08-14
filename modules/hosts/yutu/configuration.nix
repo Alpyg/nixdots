@@ -160,7 +160,6 @@
         "wheel"
         "storage"
         "docker"
-        "ollama"
       ];
     };
     systemd.tmpfiles.rules = [

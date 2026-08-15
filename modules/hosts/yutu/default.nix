@@ -9,6 +9,7 @@
       self.nixosModules.yutuHardware
       self.nixosModules.yutuUsers
 
+      self.nixosModules.tailscale
       # self.nixosModules.stylix
 
       inputs.nur.modules.nixos.default

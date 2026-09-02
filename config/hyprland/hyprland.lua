@@ -1,31 +1,29 @@
 local hs = require("hyprsplit")
 hs.config({ num_workspaces = 10 })
 
-local mod      = "SUPER"
+local mod = "SUPER"
 local terminal = "kitty"
 
-
 hl.monitor({
-  output   = "DP-1",
-  mode     = "1920x1080@60",
+  output = "DP-1",
+  mode = "1920x1080@60",
   position = "0x0",
-  scale    = 1,
+  scale = 1,
 })
 
 hl.monitor({
-  output   = "HDMI-A-1",
-  mode     = "1920x1080@60",
+  output = "HDMI-A-1",
+  mode = "1920x1080@60",
   position = "1920x0",
-  scale    = 1,
+  scale = 1,
 })
 
 hl.monitor({
-  output   = "",
-  mode     = "preferred",
+  output = "",
+  mode = "preferred",
   position = "auto",
-  scale    = 1,
+  scale = 1,
 })
-
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("steam")
@@ -35,7 +33,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 end)
 
-
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
@@ -43,35 +40,34 @@ hl.env("___GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("__NV_DISABLE_EXPLICIT_SYNC", "1")
 hl.env("XDG_MENU_PREFIX", "arch-")
 
-
 hl.config({
   general = {
-    gaps_in       = 4,
-    gaps_out      = 8,
-    border_size   = 2,
-    layout        = "dwindle",
+    gaps_in = 4,
+    gaps_out = 8,
+    border_size = 2,
+    layout = "dwindle",
     allow_tearing = true,
-    col           = {
-      active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+    col = {
+      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
       inactive_border = "rgba(595959aa)",
     },
   },
 
   decoration = {
-    rounding         = 8,
-    rounding_power   = 2,
-    active_opacity   = 1.0,
+    rounding = 8,
+    rounding_power = 2,
+    active_opacity = 1.0,
     inactive_opacity = 1.0,
-    shadow           = {
-      enabled      = true,
-      range        = 4,
+    shadow = {
+      enabled = true,
+      range = 4,
       render_power = 3,
-      color        = 0xee1a1a1a,
+      color = 0xee1a1a1a,
     },
-    blur             = {
-      enabled  = true,
-      size     = 3,
-      passes   = 1,
+    blur = {
+      enabled = true,
+      size = 3,
+      passes = 1,
       vibrancy = 0.1696,
     },
   },
@@ -81,11 +77,10 @@ hl.config({
   },
 
   input = {
-    kb_layout    = "us",
+    kb_layout = "us",
     follow_mouse = 0,
   },
 })
-
 
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
@@ -110,7 +105,6 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almo
 hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
-
 
 -- Apps
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))

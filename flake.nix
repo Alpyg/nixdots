@@ -15,7 +15,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprsplit.url = "github:shezdy/hyprsplit";
     stylix.url = "github:nix-community/stylix";
-    nvf.url = "/mnt/x/Dev/nvf";
+    nvf.url = "github:Alpyg/nvf";
     nixcord.url = "github:FlameFlag/nixcord";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -23,11 +23,11 @@
   };
 
   nixConfig = {
-    extra-substituters = [ "https://vortex-nix.cachix.org" ];
+    extra-substituters = ["https://vortex-nix.cachix.org"];
     extra-trusted-public-keys = [
       "vortex-nix.cachix.org-1:7+ZVU0umNp8sz1JqZV/bRcbVgemNuNtzN5KiJxihFRY="
     ];
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 }

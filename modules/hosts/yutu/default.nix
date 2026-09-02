@@ -23,14 +23,19 @@
   flake.nixosModules.yutuUsers = {pkgs, ...}: {
     users.users.alpyg = {
       isNormalUser = true;
-      shell = pkgs.fish;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "storage"
+        "docker"
+      ];
     };
     home-manager.users.alpyg = self.homeModules.alpyg;
 
     users.users.dokploy = {
       isNormalUser = true;
-      extraGroups = ["docker"];
       shell = pkgs.bash;
+      extraGroups = ["docker"];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAkiR3D1WKlLwI91cOfK/ETYl8PAYgjCmoZsAi/33r4U dokploy"
       ];

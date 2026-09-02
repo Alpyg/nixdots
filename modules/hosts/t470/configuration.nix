@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.yutuConfiguration = {
+  flake.nixosModules.t470Configuration = {
     pkgs,
     config,
     lib,
@@ -13,13 +13,12 @@
         "nix-command"
         "flakes"
       ];
-      trusted-users = ["alpyg"];
+      trusted-users = ["t470"];
     };
     nixpkgs.config.allowUnfree = true;
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    boot.supportedFilesystems = ["ntfs"];
 
     sops.defaultSopsFile = ../../../secrets.yml;
     sops.defaultSopsFormat = "yaml";
@@ -28,22 +27,11 @@
     sops.age.keyFile = "/home/alpyg/.config/sops/age/keys.txt";
 
     networking = {
-      hostName = "yutu";
-      firewall = {
-        enable = true;
-        trustedInterfaces = [
-          "eno1"
-          "zth6rflskm"
-        ];
-      };
+      hostName = "t470";
+      networkmanager.enable = true;
+      firewall.enable = true;
     };
-
     services.openssh.enable = true;
-    services.zerotierone = {
-      enable = true;
-      joinNetworks = ["743993800fb0301f"];
-      localConf = {};
-    };
 
     time.timeZone = "America/Toronto";
     i18n.defaultLocale = "en_US.UTF-8";
@@ -58,30 +46,12 @@
       ];
     };
     hardware.bluetooth.enable = true;
-    hardware.opentabletdriver.enable = true;
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-    };
 
     virtualisation.docker = {
       enable = true;
       liveRestore = false;
       extraOptions = "--insecure-registry nexus:5000";
     };
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.nvidia-container-toolkit.enable = true;
-
-    # virtualisation.virtualbox.host = {
-    #   enable = true;
-    #   enableKvm = true;
-    #   addNetworkInterface = false;
-    # };
-    users.extraGroups.vboxusers.members = ["alpyg"];
 
     security.rtkit.enable = true;
     services.pipewire = {
@@ -90,24 +60,13 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-
-    users.users.alpyg = {
-      isNormalUser = true;
-      description = "Alpyg";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "storage"
-        "docker"
-      ];
-    };
     users.defaultUserShell = pkgs.fish;
 
     services.xserver.enable = true;
     services.displayManager.sddm.enable = true;
     services.displayManager.sddm.package = pkgs.kdePackages.sddm;
     services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "alpyg";
+    services.displayManager.autoLogin.user = "t470";
     programs.hyprland = {
       enable = true;
       package = pkgs.hyprland;
@@ -138,54 +97,7 @@
       ];
     };
 
-    programs.obs-studio = {
-      enable = true;
-      enableVirtualCamera = true;
-
-      plugins = with pkgs.obs-studio-plugins; [
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-        obs-vaapi
-        obs-gstreamer
-        obs-vkcapture
-      ];
-    };
-
-    services.wivrn = {
-      enable = true;
-      openFirewall = true;
-      autoStart = true;
-
-      package = pkgs.wivrn.override {config.cudaSupport = true;};
-
-      config = {
-        enable = true;
-        json = {
-          scale = 0.5;
-          bitrate = 100000000;
-          encoders = [
-            {
-              encoder = "nvenc";
-              codec = "h264";
-              width = 1.0;
-              height = 1.0;
-              offset_x = 0.0;
-              offset_y = 0.0;
-            }
-          ];
-          application = with pkgs; [wayvr];
-        };
-      };
-    };
-    systemd.user.services.wivrn.environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=%t/bus";
-
-    # stylix = {
-    #   enable = true;
-    #   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    # };
-
     environment.systemPackages = with pkgs; [
-      openvpn
       fishPlugins.done
       kitty
       nix-index
@@ -222,16 +134,6 @@
         WLR_NO_HARDWARE_CURSORS = "1";
       };
     };
-
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-      glib
-      libgcc
-      libz
-      libGL
-      libX11
-      libxcb
-    ];
 
     fonts.packages = with pkgs; [nerd-fonts.noto];
 
@@ -271,49 +173,6 @@
           RestartSec = 1;
           TimeoutStopSec = 10;
         };
-      };
-    };
-
-    services.samba = {
-      enable = true;
-      openFirewall = true;
-
-      settings = {
-        global = {
-          "workgroup" = "WORKGROUP";
-          "server string" = "smbnix";
-          "netbios name" = "smbnix";
-          "security" = "user";
-          #"use sendfile" = "yes";
-          #"max protocol" = "smb2";
-          # note: localhost is the ipv6 localhost ::1
-          "hosts allow" = "10.147.20.0/24 192.168.2.0/24 127.0.0.1 localhost";
-          "hosts deny" = "0.0.0.0/0";
-          "guest account" = "alpyg";
-          "map to guest" = "bad user";
-        };
-        "laribi" = {
-          "path" = "/mnt/y/.share/laribi";
-          "browsable" = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-        };
-      };
-    };
-
-    services.samba-wsdd = {
-      enable = true;
-      openFirewall = true;
-    };
-
-    services.transmission = {
-      enable = true;
-      package = pkgs.transmission_4;
-      settings = {
-        download-dir = "/mnt/y/.torrents";
-        incomplete-dir-enabled = false;
       };
     };
 

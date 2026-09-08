@@ -35,11 +35,14 @@
     users.users.dokploy = {
       isNormalUser = true;
       shell = pkgs.bash;
-      extraGroups = ["docker"];
+      extraGroups = ["wheel" "docker"];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAkiR3D1WKlLwI91cOfK/ETYl8PAYgjCmoZsAi/33r4U dokploy"
       ];
     };
+    security.sudo.extraConfig = ''
+      dokploy ALL=(ALL) NOPASSWD:ALL
+    '';
 
     environment.systemPackages = with pkgs; [
       git

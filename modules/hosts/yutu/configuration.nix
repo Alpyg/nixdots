@@ -33,7 +33,6 @@
         enable = true;
         trustedInterfaces = [
           "eno1"
-          "zth6rflskm"
         ];
       };
     };
@@ -283,22 +282,27 @@
           "workgroup" = "WORKGROUP";
           "server string" = "smbnix";
           "netbios name" = "smbnix";
+          "disable netbios" = "yes";
+
+          "interfaces" = "lo eno1";
+          "bind interfaces only" = "yes";
+
           "security" = "user";
-          #"use sendfile" = "yes";
-          #"max protocol" = "smb2";
-          # note: localhost is the ipv6 localhost ::1
-          "hosts allow" = "10.147.20.0/24 192.168.2.0/24 127.0.0.1 localhost";
-          "hosts deny" = "0.0.0.0/0";
+          "use sendfile" = "yes";
+          "max protocol" = "smb3";
+          "min protocol" = "smb2";
           "guest account" = "alpyg";
           "map to guest" = "bad user";
         };
-        "laribi" = {
-          "path" = "/mnt/y/.share/laribi";
+        "Anime" = {
+          "path" = "/mnt/y/.torrents/Anime";
           "browsable" = "yes";
-          "read only" = "no";
+          "read only" = "yes";
           "guest ok" = "yes";
           "create mask" = "0644";
           "directory mask" = "0755";
+          "force user" = "alpyg";
+          "valid users" = "alpyg";
         };
       };
     };

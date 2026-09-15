@@ -14,9 +14,7 @@
 
     programs.btop = {
       enable = true;
-      package = pkgs.btop.overrideAttrs (old: rec {
-        cudaSupport = true;
-      });
+      package = pkgs.btop-cuda;
       settings = {
         update_ms = 100;
         use_fstab = false;

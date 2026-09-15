@@ -104,7 +104,7 @@
       kicad
       blender
       openscad
-      freecad
+      # freecad
       sops
       anki
       gimp

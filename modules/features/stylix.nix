@@ -11,11 +11,11 @@
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
-      cursor = {
-        package = pkgs.catppuccin-cursors;
-        name = "mochaBlue";
-        size = 24;
-      };
+      # cursor = {
+      #   package = pkgs.catppuccin-cursors;
+      #   name = "mochaBlue";
+      #   size = 24;
+      # };
 
       fonts.sizes = {
         applications = 9;

@@ -20,7 +20,7 @@ nix-collect-garbage -d
 > Runs `nixos-rebuild test` for .#yutu
 
 ```sh
-nixos-rebuild test   --target-host root@10.147.20.18  --flake .#yutu
+nixos-rebuild test   --target-host root@yutu  --use-substitutes --flake .#yutu
 ```
 
 ## switch (host)

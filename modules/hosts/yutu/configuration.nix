@@ -8,6 +8,8 @@
     environment.variables.GLFW_IM_MODULE = "ibus";
 
     nix.settings = {
+      max-jobs = 12;
+      cores = 6;
       auto-optimise-store = true;
       experimental-features = [
         "nix-command"
@@ -64,7 +66,7 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
     virtualisation.docker = {
@@ -238,7 +240,7 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal
-        # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
       ];
       config = {

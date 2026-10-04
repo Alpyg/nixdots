@@ -25,7 +25,7 @@
       shadps4
       shadps4-qtlauncher
       # nur.repos.ataraxiasjel.stalker-gamma-cli
-      inputs.vortex-nix.packages.x86_64-linux.vortex
+      # inputs.vortex-nix.packages.x86_64-linux.vortex
     ];
 
     xdg.configFile."openvr/openvrpaths.vrpath".text = let

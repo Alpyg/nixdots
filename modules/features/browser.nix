@@ -30,6 +30,7 @@
           "zen.view.compact.animate-sidebar" = true;
           "zen.welcome-screen.seen" = true;
         };
+        presets.catppuccin.enable = true;
         mods = [
           "ae7868dc-1fa1-469e-8b89-a5edf7ab1f24"
           "81fcd6b3-f014-4796-988f-6c3cb3874db8"

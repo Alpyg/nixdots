@@ -119,7 +119,6 @@
       "x-scheme-handler/https" = "zen.desktop";
       "x-scheme-handler/about" = "zen.desktop";
       "x-scheme-handler/unknown" = "zen.desktop";
-      "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
     };
     xdg.configFile."menus/applications.menu".text =
       builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";

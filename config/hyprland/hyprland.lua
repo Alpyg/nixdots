@@ -26,7 +26,6 @@ hl.monitor({
 })
 
 hl.on("hyprland.start", function()
-  hl.exec_cmd("steam")
   hl.exec_cmd("discord")
   hl.exec_cmd("dunst")
   hl.exec_cmd("clipse -listen")

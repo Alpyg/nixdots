@@ -24,6 +24,7 @@
 
       targets = {
         nixcord.enable = false;
+        firefox.profileNames = ["Alpyg"];
         zen-browser.profileNames = ["Alpyg"];
       };
     };

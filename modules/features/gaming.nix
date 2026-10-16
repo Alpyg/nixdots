@@ -24,6 +24,7 @@
       uzdoom
       shadps4
       shadps4-qtlauncher
+      retroarch-full
       # nur.repos.ataraxiasjel.stalker-gamma-cli
       # inputs.vortex-nix.packages.x86_64-linux.vortex
     ];

@@ -36,6 +36,7 @@
       # go
       # godot_4
       lazydocker
+      zellij
       libnotify
       mask
       # mprocs

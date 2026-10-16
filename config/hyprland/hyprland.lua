@@ -5,14 +5,14 @@ local mod = "SUPER"
 local terminal = "kitty"
 
 hl.monitor({
-  output = "DP-1",
+  output = "desc:LG Electronics 24MP56 0x0003A568",
   mode = "1920x1080@60",
   position = "0x0",
   scale = 1,
 })
 
 hl.monitor({
-  output = "HDMI-A-1",
+  output = "desc:LG Electronics 24MP56 0x00059A54",
   mode = "1920x1080@60",
   position = "1920x0",
   scale = 1,

@@ -8,8 +8,8 @@
     environment.variables.GLFW_IM_MODULE = "ibus";
 
     nix.settings = {
-      max-jobs = 12;
-      cores = 6;
+      max-jobs = 24;
+      cores = 12;
       auto-optimise-store = true;
       experimental-features = [
         "nix-command"
@@ -19,6 +19,7 @@
     };
     nixpkgs.config.allowUnfree = true;
 
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.supportedFilesystems = ["ntfs"];
@@ -58,7 +59,16 @@
         libvdpau-va-gl
       ];
     };
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+          FastConnectable = true;
+        };
+      };
+    };
     hardware.opentabletdriver.enable = true;
     hardware.nvidia = {
       modesetting.enable = true;

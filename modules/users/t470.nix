@@ -91,7 +91,7 @@
       kdePackages.kservice
       kdePackages.polkit-kde-agent-1
 
-      stremio-linux-shell
+      # stremio-linux-shell
       sops
       anki
       inputs.nvf.packages.${pkgs.stdenv.hostPlatform.system}.default

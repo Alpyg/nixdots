@@ -100,7 +100,7 @@
       kdePackages.kservice
       kdePackages.polkit-kde-agent-1
 
-      stremio-linux-shell
+      # stremio-linux-shell
       kicad
       blender
       openscad

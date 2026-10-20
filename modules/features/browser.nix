@@ -4,6 +4,9 @@
     config,
     ...
   }: {
+    imports = [
+      inputs.zen-browser.homeModules.beta
+    ];
     nixpkgs.overlays = [inputs.firefox-addons.overlays.default];
 
     programs.zen-browser = {

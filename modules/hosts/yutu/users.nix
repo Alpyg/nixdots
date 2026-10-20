@@ -3,14 +3,14 @@
   inputs,
   ...
 }: {
-  flake.homeConfigurations.t470 = inputs.home-manager.lib.homeManagerConfiguration {
+  flake.homeConfigurations.alpyg = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
     modules = [
-      self.homeModules.t470
+      self.homeModules.alpyg
     ];
   };
 
-  flake.homeModules.t470 = {pkgs, ...}: {
+  flake.homeModules.alpyg = {pkgs, ...}: {
     imports = [
       self.homeModules.base
       self.homeModules.stylix
@@ -18,10 +18,7 @@
       self.homeModules.browser
       self.homeModules.dev
       self.homeModules.nixcord
-
-      inputs.stylix.homeModules.stylix
-      inputs.nixcord.homeModules.nixcord
-      inputs.zen-browser.homeModules.beta
+      self.homeModules.gaming
     ];
 
     nixpkgs = {
@@ -38,11 +35,12 @@
     };
 
     home = {
-      username = "t470";
-      homeDirectory = "/home/t470";
+      username = "alpyg";
+      homeDirectory = "/home/alpyg";
     };
 
     programs.home-manager.enable = true;
+    programs.obs-studio.enable = true;
     programs.fish.enable = true;
     programs.zoxide = {
       enable = true;
@@ -69,8 +67,14 @@
       vlc
       mpv
       syncplay
+      calibre
+      unityhub
+      alcom
+      goverlay
       prismlauncher
+      osu-lazer
       obsidian
+      prusa-slicer
       libsForQt5.qt5ct
       kdePackages.qt6ct
       kdePackages.breeze-gtk
@@ -92,8 +96,15 @@
       kdePackages.polkit-kde-agent-1
 
       # stremio-linux-shell
+      kicad
+      blender
+      openscad
+      # freecad
       sops
       anki
+      gimp
+      r2modman
+      blockbench
       inputs.nvf.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 

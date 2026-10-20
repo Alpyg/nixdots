@@ -9,6 +9,8 @@
       self.nixosModules.yutuHardware
       self.nixosModules.yutuUsers
 
+      self.nixosModules.noctalia
+
       self.nixosModules.tailscale
       self.nixosModules.stylix
 

@@ -128,6 +128,7 @@
     services.udisks2.enable = true;
 
     programs.fish.enable = true;
+    programs.mosh.enable = true;
     programs.partition-manager.enable = true;
 
     programs.gamemode.enable = true;

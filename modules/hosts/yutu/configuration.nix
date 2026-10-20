@@ -115,16 +115,6 @@
     users.defaultUserShell = pkgs.fish;
 
     services.xserver.enable = true;
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.package = pkgs.kdePackages.sddm;
-    services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "alpyg";
-    programs.hyprland = {
-      enable = true;
-      package = pkgs.hyprland;
-      portalPackage = pkgs.xdg-desktop-portal-hyprland;
-    };
-
     services.udisks2.enable = true;
 
     programs.fish.enable = true;
@@ -211,11 +201,6 @@
     environment.shells = with pkgs; [fish];
 
     environment = {
-      variables = {
-        XDG_CURRENT_DESKTOP = "Hyprland";
-        XDG_SESSION_TYPE = "wayland";
-        XDG_SESSION_DESKTOP = "Hyprland";
-      };
       sessionVariables = {
         XDG_CACHE_HOME = "$HOME/.cache";
         XDG_CONFIG_HOME = "$HOME/.config";
@@ -230,33 +215,7 @@
       };
     };
 
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-      glib
-      libgcc
-      libz
-      libGL
-      libX11
-      libxcb
-    ];
-
     fonts.packages = with pkgs; [nerd-fonts.noto];
-
-    systemd = {
-      user.services.polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        wantedBy = ["graphical-session.target"];
-        wants = ["graphical-session.target"];
-        after = ["graphical-session.target"];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-    };
 
     services.samba = {
       enable = true;

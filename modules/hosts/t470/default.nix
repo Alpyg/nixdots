@@ -9,6 +9,8 @@
       self.nixosModules.t470Hardware
       self.nixosModules.t470Users
 
+      self.nixosModules.noctalia
+
       self.nixosModules.tailscale
       self.nixosModules.stylix
 

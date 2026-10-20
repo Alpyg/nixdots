@@ -21,7 +21,6 @@
       self.homeModules.gaming
       # self.homeModules.llm
 
-      inputs.stylix.homeModules.stylix
       inputs.nixcord.homeModules.nixcord
       inputs.zen-browser.homeModules.beta
     ];

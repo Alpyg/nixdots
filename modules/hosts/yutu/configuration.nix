@@ -190,11 +190,6 @@
     };
     systemd.user.services.wivrn.environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=%t/bus";
 
-    # stylix = {
-    #   enable = true;
-    #   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    # };
-
     environment.systemPackages = with pkgs; [
       openvpn
       fishPlugins.done

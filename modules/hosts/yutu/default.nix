@@ -10,11 +10,11 @@
       self.nixosModules.yutuUsers
 
       self.nixosModules.tailscale
-      # self.nixosModules.stylix
+      self.nixosModules.stylix
 
       inputs.nur.modules.nixos.default
       inputs.home-manager.nixosModules.default
-      # inputs.stylix.nixosModules.stylix
+      inputs.stylix.nixosModules.stylix
       inputs.sops.nixosModules.sops
       inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     ];

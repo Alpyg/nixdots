@@ -230,40 +230,7 @@
       };
     };
 
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-      glib
-      libgcc
-      libz
-      libGL
-      libX11
-      libxcb
-    ];
-
     fonts.packages = with pkgs; [nerd-fonts.noto];
-
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-      ];
-      config = {
-        common = {
-          default = ["gtk"];
-          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
-        };
-        hyprland = {
-          default = [
-            "hyprland"
-            "gtk"
-          ];
-          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
-          "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
-        };
-      };
-    };
 
     systemd = {
       user.services.polkit-gnome-authentication-agent-1 = {

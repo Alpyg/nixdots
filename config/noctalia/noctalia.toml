@@ -109,6 +109,12 @@ path = "/nix/store/d40ca1kxfc6dpv214w0s5g4m2wwswpna-noctalia-5.3.0/share/noctali
 [wallpaper.last]
 path = "/nix/store/d40ca1kxfc6dpv214w0s5g4m2wwswpna-noctalia-5.3.0/share/noctalia/assets/noctalia-wallpaper.png"
 
+[widget.battery]
+show_label = false
+
+[widget.brightness]
+show_label = false
+
 [widget.launcher]
 glyph = "rocket"
 

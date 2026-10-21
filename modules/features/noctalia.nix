@@ -24,6 +24,12 @@
       inputs.noctalia.homeModules.default
     ];
 
+    home.packages = with pkgs; [
+      grim
+      slurp
+      wl-clipboard
+    ];
+
     programs.noctalia = {
       enable = true;
       settings = lib.mkForce (builtins.fromTOML (builtins.readFile ../../config/noctalia/noctalia.toml));
@@ -154,6 +160,9 @@
             action = "spawn:noctalia msg brightness-down";
             allow_when_locked = true;
           };
+
+          "Print" = "spawn:grim -g \"$(slurp)\" - | wl-copy";
+          "Shift+Print" = "spawn:grim - | wl-copy";
 
           "Mod+1" = "workspace-switch:1";
           "Mod+2" = "workspace-switch:2";

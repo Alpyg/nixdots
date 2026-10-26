@@ -55,6 +55,10 @@
       wget
     ];
 
+    services.displayManager.noctalia-greeter.settings = {
+      user.default = "alpyg";
+    };
+
     systemd.tmpfiles.rules = [
       "d /etc/dokploy 0755 dokploy dokploy -"
     ];

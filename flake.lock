@@ -655,6 +655,7 @@
         "sops": "sops",
         "stylix": "stylix",
         "umbriel": "umbriel",
+        "vortex": "vortex",
         "wrapper-modules": "wrapper-modules",
         "zen-browser": "zen-browser"
       }
@@ -868,6 +869,44 @@
         "owner": "noctalia-dev",
         "ref": "cachix",
         "repo": "umbriel",
+        "type": "github"
+      }
+    },
+    "vortex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "vortex-src": "vortex-src"
+      },
+      "locked": {
+        "lastModified": 1792767321,
+        "narHash": "sha256-r78/bRd05SkXnjxBRMvQlc/CEPpAADEGDLAXqtnDil8=",
+        "owner": "Alpyg",
+        "repo": "vortex-nix",
+        "rev": "b4098723146b103e55a9b6b48fb499364954ba2b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alpyg",
+        "repo": "vortex-nix",
+        "type": "github"
+      }
+    },
+    "vortex-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792398417,
+        "narHash": "sha256-yMxwZBK0v6jwvZnLVm1P/nyC1Tw03jGyGSxAiElazsM=",
+        "owner": "Nexus-Mods",
+        "repo": "Vortex",
+        "rev": "e04093000d0f6ccf78994670599f7a42b361a038",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nexus-Mods",
+        "ref": "v2.9.0",
+        "repo": "Vortex",
         "type": "github"
       }
     },

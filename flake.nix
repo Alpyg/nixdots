@@ -34,16 +34,21 @@
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+
+    vortex.url = "github:Alpyg/vortex-nix";
+    vortex.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   nixConfig = {
     extra-substituters = [
       "https://umbriel.cachix.org"
       "https://noctalia.cachix.org"
+      "https://vortex-nix.cachix.org"
     ];
     extra-trusted-public-keys = [
       "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "vortex-nix.cachix.org-1:7+ZVU0umNp8sz1JqZV/bRcbVgemNuNtzN5KiJxihFRY="
     ];
   };
 

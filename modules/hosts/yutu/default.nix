@@ -5,13 +5,13 @@
 }: {
   flake.nixosConfigurations.yutu = inputs.nixpkgs.lib.nixosSystem {
     modules = [
+      self.nixosModules.base
       self.nixosModules.yutuConfiguration
       self.nixosModules.yutuHardware
       self.nixosModules.yutuUsers
 
       self.nixosModules.noctalia
 
-      self.nixosModules.tailscale
       self.nixosModules.stylix
 
       inputs.nur.modules.nixos.default
@@ -28,39 +28,8 @@
         "networkmanager"
         "wheel"
         "storage"
-        "docker"
       ];
     };
     home-manager.users.alpyg = self.homeModules.alpyg;
-
-    users.users.dokploy = {
-      isNormalUser = true;
-      shell = pkgs.bash;
-      extraGroups = ["wheel" "docker"];
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAkiR3D1WKlLwI91cOfK/ETYl8PAYgjCmoZsAi/33r4U dokploy"
-      ];
-    };
-    security.sudo.extraConfig = ''
-      dokploy ALL=(ALL) NOPASSWD:ALL
-    '';
-
-    environment.systemPackages = with pkgs; [
-      git
-      git-lfs
-      jq
-      openssl
-      unzip
-      uutils-tar
-      wget
-    ];
-
-    services.displayManager.noctalia-greeter.settings = {
-      user.default = "alpyg";
-    };
-
-    systemd.tmpfiles.rules = [
-      "d /etc/dokploy 0755 dokploy dokploy -"
-    ];
   };
 }

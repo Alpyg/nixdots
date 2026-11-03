@@ -1,97 +1,67 @@
-{lib, ...}: {
-  flake.homeModules.base = {pkgs, ...}: {
-    programs.fish = {
-      enable = true;
-      shellAliases = {
-        l = "ls -lah";
-      };
-    };
+{...}: {
+  flake.nixosModules.base = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: {
+    environment.variables.GLFW_IM_MODULE = "ibus";
 
-    programs.kitty = {
-      enable = true;
-      font.size = lib.mkForce 8;
-    };
-
-    programs.btop = {
-      enable = true;
-      package = pkgs.btop-cuda;
-      settings = {
-        update_ms = 100;
-        use_fstab = false;
-        disks_filter = "/ /mnt/x /mnt/y /mnt/z";
-      };
-    };
-
-    home.packages = with pkgs; [
-      mangohud
-      dust
-      dua
-      eza
-      fd
-      lldb
-      ripgrep-all
-      # uutils-coreutils-noprefix
-      xh
-    ];
-
-    home.shellAliases = {
-      ls = "eza";
-    };
-
-    programs.bat = {
-      enable = true;
-      extraPackages = with pkgs.bat-extras; [
-        batdiff
-        batgrep
-        batman
-        batpipe
-        batwatch
-        prettybat
+    nix.settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
       ];
     };
+    nixpkgs.config.allowUnfree = true;
 
-    programs.yazi = {
-      enable = true;
-      settings.manager.show_hidden = true;
-    };
-
-    programs.helix = {
-      enable = true;
-      settings = {
-        editor.cursor-shape = {
-          normal = "block";
-          insert = "bar";
-          select = "underline";
-        };
+    networking = {
+      nftables.enable = true;
+      networkmanager.enable = true;
+      firewall = {
+        enable = true;
+        trustedInterfaces = [config.services.tailscale.interfaceName];
+        allowedUDPPorts = [config.services.tailscale.port];
       };
     };
+    services.tailscale.enable = true;
 
-    # programs.bat = {
-    #   enable = true;
-    #   extraPackages = with pkgs.bat-extras; [
-    #     batdiff
-    #     batgrep
-    #     batman
-    #     batpipe
-    #     batwatch
-    #     prettybat
-    #   ];
-    # };
+    systemd.services.tailscaled.serviceConfig.Environment = [
+      "TS_DEBUG_FIREWALL_MODE=nftables"
+    ];
 
-    # programs.yazi = {
-    #   enable = true;
-    #   settings.manager.show_hidden = true;
-    # };
+    systemd.network.wait-online.enable = false;
+    boot.initrd.systemd.network.wait-online.enable = false;
 
-    # programs.helix = {
-    #   enable = true;
-    #   settings = {
-    #     editor.cursor-shape = {
-    #       normal = "block";
-    #       insert = "bar";
-    #       select = "underline";
-    #     };
-    #   };
-    # };
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.supportedFilesystems = ["ntfs"];
+
+    sops.defaultSopsFile = ./../../secrets.yml;
+    sops.defaultSopsFormat = "yaml";
+    sops.age.generateKey = true;
+
+    programs.fish.enable = true;
+    users.defaultUserShell = pkgs.fish;
+
+    services.openssh.enable = true;
+    services.udisks2.enable = true;
+
+    time.timeZone = "America/Toronto";
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    fonts.packages = with pkgs; [nerd-fonts.noto];
+
+    system.stateVersion = "26.05";
   };
 }

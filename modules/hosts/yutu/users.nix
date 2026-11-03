@@ -41,14 +41,12 @@
 
     programs.home-manager.enable = true;
     programs.obs-studio.enable = true;
-    programs.fish.enable = true;
     programs.zoxide = {
       enable = true;
       enableFishIntegration = true;
     };
 
     services.kdeconnect.enable = true;
-    services.hyprpolkitagent.enable = true;
 
     home.packages = with pkgs; [
       zoxide
@@ -107,18 +105,9 @@
     ];
 
     xdg.mimeApps.defaultApplications = {
-      "text/html" = "zen.desktop";
-      "x-scheme-handler/http" = "zen.desktop";
-      "x-scheme-handler/https" = "zen.desktop";
-      "x-scheme-handler/about" = "zen.desktop";
-      "x-scheme-handler/unknown" = "zen.desktop";
       "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
     };
     xdg.configFile."menus/applications.menu".text =
       builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-
-    systemd.user.startServices = "sd-switch";
-
-    home.stateVersion = "26.05";
   };
 }

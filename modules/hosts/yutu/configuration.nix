@@ -5,50 +5,9 @@
     lib,
     ...
   }: {
-    environment.variables.GLFW_IM_MODULE = "ibus";
-
-    nix.settings = {
-      max-jobs = 24;
-      cores = 12;
-      auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-users = ["alpyg"];
-    };
-    nixpkgs.config.allowUnfree = true;
-
-    boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.supportedFilesystems = ["ntfs"];
-
-    sops.defaultSopsFile = ../../../secrets.yml;
-    sops.defaultSopsFormat = "yaml";
-
-    sops.age.generateKey = true;
     sops.age.keyFile = "/home/alpyg/.config/sops/age/keys.txt";
-
-    networking = {
-      hostName = "yutu";
-      firewall = {
-        enable = true;
-        trustedInterfaces = [
-          "eno1"
-        ];
-      };
-    };
-
-    services.openssh.enable = true;
-    services.zerotierone = {
-      enable = true;
-      joinNetworks = ["743993800fb0301f"];
-      localConf = {};
-    };
-
-    time.timeZone = "America/Toronto";
-    i18n.defaultLocale = "en_US.UTF-8";
+    nix.settings.trusted-users = ["alpyg"];
+    networking.hostName = "yutu";
 
     hardware.graphics = {
       enable = true;
@@ -78,46 +37,9 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-
-    virtualisation.docker = {
-      enable = true;
-      liveRestore = false;
-      extraOptions = "--insecure-registry nexus:5000";
-    };
     services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia-container-toolkit.enable = true;
 
-    # virtualisation.virtualbox.host = {
-    #   enable = true;
-    #   enableKvm = true;
-    #   addNetworkInterface = false;
-    # };
-    users.extraGroups.vboxusers.members = ["alpyg"];
-
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-
-    users.users.alpyg = {
-      isNormalUser = true;
-      description = "Alpyg";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "storage"
-        "docker"
-      ];
-    };
-    users.defaultUserShell = pkgs.fish;
-
-    services.xserver.enable = true;
-    services.udisks2.enable = true;
-
-    programs.fish.enable = true;
     programs.mosh.enable = true;
     programs.partition-manager.enable = true;
 
@@ -181,25 +103,6 @@
     };
     systemd.user.services.wivrn.environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=%t/bus";
 
-    environment.systemPackages = with pkgs; [
-      openvpn
-      fishPlugins.done
-      kitty
-      nix-index
-      neovim
-      stow
-      gtk3
-      dmenu
-      killall
-      vulkan-loader
-      qpwgraph
-      wget
-      v4l-utils
-      linuxPackages.v4l2loopback
-      dconf
-    ];
-    environment.shells = with pkgs; [fish];
-
     environment = {
       sessionVariables = {
         XDG_CACHE_HOME = "$HOME/.cache";
@@ -255,16 +158,5 @@
       enable = true;
       openFirewall = true;
     };
-
-    services.transmission = {
-      enable = true;
-      package = pkgs.transmission_4;
-      settings = {
-        download-dir = "/mnt/y/.torrents";
-        incomplete-dir-enabled = false;
-      };
-    };
-
-    system.stateVersion = "26.05";
   };
 }

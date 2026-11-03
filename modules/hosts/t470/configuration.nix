@@ -5,36 +5,9 @@
     lib,
     ...
   }: {
-    environment.variables.GLFW_IM_MODULE = "ibus";
-
-    nix.settings = {
-      auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-users = ["t470"];
-    };
-    nixpkgs.config.allowUnfree = true;
-
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-
-    sops.defaultSopsFile = ../../../secrets.yml;
-    sops.defaultSopsFormat = "yaml";
-
-    sops.age.generateKey = true;
     sops.age.keyFile = "/home/alpyg/.config/sops/age/keys.txt";
-
-    networking = {
-      hostName = "t470";
-      networkmanager.enable = true;
-      firewall.enable = true;
-    };
-    services.openssh.enable = true;
-
-    time.timeZone = "America/Toronto";
-    i18n.defaultLocale = "en_US.UTF-8";
+    nix.settings.trusted-users = ["alpyg"];
+    networking.hostName = "t470";
 
     hardware.graphics = {
       enable = true;
@@ -46,27 +19,6 @@
       ];
     };
     hardware.bluetooth.enable = true;
-
-    virtualisation.docker = {
-      enable = true;
-      liveRestore = false;
-      extraOptions = "--insecure-registry nexus:5000";
-    };
-
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-    users.defaultUserShell = pkgs.fish;
-
-    services.xserver.enable = true;
-    services.udisks2.enable = true;
-
-    programs.fish.enable = true;
-    programs.partition-manager.enable = true;
 
     programs.gamemode.enable = true;
     programs.gamescope.enable = true;
@@ -86,42 +38,5 @@
         proton-ge-bin
       ];
     };
-
-    environment.systemPackages = with pkgs; [
-      fishPlugins.done
-      kitty
-      nix-index
-      neovim
-      stow
-      gtk3
-      dmenu
-      killall
-      vulkan-loader
-      qpwgraph
-      wget
-      v4l-utils
-      linuxPackages.v4l2loopback
-      dconf
-    ];
-    environment.shells = with pkgs; [fish];
-
-    environment = {
-      sessionVariables = {
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-        # QT_QPA_PLATFORMTHEME = "qt6ct";
-        MOZ_ENABLE_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
-        T_QPA_PLATFORM = "wayland";
-        GDK_BACKEND = "wayland";
-        WLR_NO_HARDWARE_CURSORS = "1";
-      };
-    };
-
-    fonts.packages = with pkgs; [nerd-fonts.noto];
-
-    system.stateVersion = "26.05";
   };
 }

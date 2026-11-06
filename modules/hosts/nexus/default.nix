@@ -14,6 +14,13 @@
 
       inputs.home-manager.nixosModules.default
       inputs.sops.nixosModules.sops
+
+      self.nixosModules.traefik
+      self.nixosModules.cloudflared
+      self.nixosModules.adguard
+      self.nixosModules.vaultwarden
+      self.nixosModules.kavita
+      self.nixosModules.obsidian
     ];
   };
 

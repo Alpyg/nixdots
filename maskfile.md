@@ -15,12 +15,12 @@ sudo nix-collect-garbage -d
 nix-collect-garbage -d
 ```
 
-## test
+## test (host)
 
 > Runs `nixos-rebuild test` for .#yutu
 
 ```sh
-nixos-rebuild test   --target-host root@yutu  --use-substitutes --flake .#yutu
+nixos-rebuild test   --target-host root@$host --use-substitutes --flake .#$host
 ```
 
 ## switch (host)

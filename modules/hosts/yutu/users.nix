@@ -107,7 +107,5 @@
     xdg.mimeApps.defaultApplications = {
       "x-scheme-handler/nxm" = "/home/alpyg/.nix-profile/bin/vortex-nxm";
     };
-    xdg.configFile."menus/applications.menu".text =
-      builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   };
 }
